@@ -381,7 +381,6 @@
 
 	mi,mdss-panel-on-dimming-delay = <120>;
 
-	mi,mdss-dsi-panel-fod-dimlayer-enabled;
 	mi,mdss-dsi-dimlayer-brightness-alpha-lut-item-count = <21>;
 	mi,mdss-dsi-dimlayer-brightness-alpha-lut =
 	/* brightness  alpha */
