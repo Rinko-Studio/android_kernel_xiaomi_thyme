@@ -6362,7 +6362,7 @@ static struct snd_soc_dai_link msm_common_dai_links[] = {
 		.ignore_suspend = 1,
 		 /* this dailink has playback support */
 		.ignore_pmdown_time = 1,
-#if defined(CONFIG_TARGET_PRODUCT_THYME)
+#if defined(CONFIG_ARCH_KONA)
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
 #endif
 		.ops = &msm_cdc_dma_be_ops,
