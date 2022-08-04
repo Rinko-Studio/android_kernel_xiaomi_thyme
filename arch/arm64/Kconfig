@@ -1724,3 +1724,7 @@ config MACH_XIAOMI_PSYCHE
 		Support for Mi 12X
 
 endmenu
+
+if ARCH_QCOM
+source "techpack/Kconfig"
+endif
