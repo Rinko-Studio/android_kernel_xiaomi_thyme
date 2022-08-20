@@ -313,6 +313,7 @@ And public attribution of xiaomi platforms(like alioth and so and)
 	regulator-min-microvolt = <3304000>;
 	regulator-max-microvolt = <3304000>;
 	qcom,init-voltage = <3304000>;
+	regulator-always-on;
 };
 
 &tlmm {
