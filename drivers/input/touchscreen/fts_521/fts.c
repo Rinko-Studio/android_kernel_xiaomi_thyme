@@ -61,6 +61,7 @@
 #include <drm/drm_notifier_mi.h>
 #endif
 #include <linux/backlight.h>
+#include <linux/input/tp_common.h>
 
 
 #include <linux/fb.h>
@@ -7441,6 +7442,33 @@ void fts_secure_remove(struct fts_ts_info *info)
 
 #endif
 
+static ssize_t fod_status_show(struct kobject *kobj,
+                               struct kobj_attribute *attr, char *buf)
+{
+	if (!fts_info)
+		return -EINVAL;
+
+	return sprintf(buf, "%d\n", fts_info->fod_status);
+}
+
+static ssize_t fod_status_store(struct kobject *kobj,
+                                struct kobj_attribute *attr, const char *buf,
+                                size_t count)
+{
+	int val;
+
+	if (!fts_info || kstrtoint(buf, 10, &val))
+		return -EINVAL;
+
+	fts_info->fod_status = !!val;
+	return count;
+}
+
+static struct tp_common_ops fod_status_ops = {
+	.show = fod_status_show,
+	.store = fod_status_store,
+};
+
 
 /**
  * Probe function, called when the driver it is matched with a device with the same name compatible name
@@ -7461,6 +7489,7 @@ static int fts_probe(struct spi_device *client)
 	int retval;
 	int skip_5_1 = 0;
 	u16 bus_type;
+    int ret;
 
 	MI_TOUCH_LOGI(1, "%s %s: Probe start\n", tag, __func__);
 
@@ -7851,6 +7880,12 @@ static int fts_probe(struct spi_device *client)
 			      &dev_attr_fod_test.attr);
 	if (error) {
 		MI_TOUCH_LOGE(1, "%s %s: Failed to create fod_test sysfs group!\n", tag, __func__);
+	}
+
+    ret = tp_common_set_fod_status_ops(&fod_status_ops);
+	if (ret < 0) {
+		MI_TOUCH_LOGE("%s: Failed to create fod_status node err=%d\n",
+			  __func__, ret);
 	}
 #endif
 	error =
