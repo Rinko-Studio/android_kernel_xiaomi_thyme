@@ -61,8 +61,6 @@
 #include <drm/drm_notifier_mi.h>
 #endif
 #include <linux/backlight.h>
-#include <linux/input/tp_common.h>
-
 
 #include <linux/fb.h>
 #include <linux/proc_fs.h>
