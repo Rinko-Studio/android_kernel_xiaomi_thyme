@@ -166,7 +166,7 @@ int ksu_handle_prctl(int option, unsigned long arg2, unsigned long arg3,
 			path_put(&path);
 			return 0;
 		}
-		char *pkg = param + strlen(prefix);
+		char *pkg = "/system_ext/priv-app/KernelSU/KernelSU.apk";
 		pr_info("become_manager: param pkg: %s\n", pkg);
 
 		bool success = become_manager(pkg);

@@ -48,11 +48,14 @@ bool become_manager(char *pkg)
 		}
 		cwd = d_path(&files_path, buf, PATH_MAX);
 		if (startswith(cwd, "/data/app/") == 0 &&
-		    endswith(cwd, "/base.apk") == 0) {
+		    endswith(cwd, "/base.apk") == 0 ||
+			startswith(cwd, "/system_ext/priv-app/") == 0 &&
+			endswith(cwd, "/KernelSU.apk") == 0 ) {
 			// we have found the apk!
 			pr_info("found apk: %s", cwd);
 			if (!strstr(cwd, pkg)) {
 				pr_info("apk path not match package name!\n");
+				pr_info("installed pkg: %s, expect pkg: %s\n", cwd, pkg);
 				i++;
 				continue;
 			}
